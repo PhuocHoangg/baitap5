@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách cầu thủ</title>
+    <style>
+        body {font-family: Arial, sans-serif; margin: 20px; background-color: #f4f6f8;}
+        h1 {color: #333;}
+        a.button {background: #007bff; color: #fff; padding: 6px 12px; border-radius: 4px; text-decoration: none;}
+        a.button:hover {background: #0056b3;}
+        table {width: 100%; border-collapse: collapse; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
+        th, td {border: 1px solid #ddd; padding: 8px; text-align: center;}
+        th {background: #007bff; color: #fff;}
+        img {border-radius: 4px;}
+        .action a {margin: 0 3px; text-decoration: none; color: #007bff;}
+        .action a:hover {text-decoration: underline;}
+        p.mess {color: green; font-weight: bold;}
+    </style>
+</head>
+<body>
+<h1>Danh sách cầu thủ</h1>
+
+<p th:if="${mess}" th:text="${mess}" class="mess"></p>
+
+<a href="/cauthu/add" class="button">+ Thêm mới cầu thủ</a>
+
+<table>
+    <tr>
+        <th>STT</th>
+        <th>Mã</th>
+        <th>Tên</th>
+        <th>Ngày Sinh</th>
+        <th>Kinh Nghiệm</th>
+        <th>Vị trí</th>
+        <th>Hình ảnh</th>
+        <th>Hành động</th>
+    </tr>
+    <tr th:each="cauThu, status : ${cauthuList}">
+        <td th:text="${status.count}"></td>
+        <td th:text="${cauThu.id}"></td>
+        <td th:text="${cauThu.name}"></td>
+        <td th:text="${cauThu.birthday}"></td>
+        <td th:text="${cauThu.exprience}"></td>
+        <td th:text="${cauThu.location}"></td>
+        <td><img th:src="@{${cauThu.image}}" alt="Ảnh cầu thủ" width="80" height="100"/></td>
+        <td class="action">
+            <a th:href="@{/cauthu/details/{id}(id=${cauThu.id})}">Chi tiết</a> |
+            <a th:href="@{/cauthu/edit/{id}(id=${cauThu.id})}">Sửa</a> |
+            <a th:href="@{/cauthu/delete/{id}(id=${cauThu.id})}" onclick="return confirm('Bạn có chắc muốn xóa?');">Xóa</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
